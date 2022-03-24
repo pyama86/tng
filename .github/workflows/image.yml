@@ -26,5 +26,5 @@ jobs:
         username: pyama86
         password: ${{ secrets.PTA }}
     - run: |
-        docker pusth pyama/tng:latest
+        docker push pyama/tng:latest
         docker push ghcr.io/pyama86/tng:latest
