@@ -1,0 +1,30 @@
+name: Release Docker Image
+on:
+  push:
+    branches:
+      - main
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: |
+        docker build -t pyama/tng:latest -t ghcr.io/pyama86/tng:latest .
+    - name: Run Vulnerability/Security Scanner
+      id: run-scanner
+      uses: Azure/container-scan@v0
+      with:
+        image-name: "pyama/tng:latest"
+    - uses: docker/login-action@v1
+      with:
+        username: pyama
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: docker.pkg.github.com
+        username: pyama86
+        password: ${{ secrets.}}
+    - run: |
+        docker pusth pyama/tng:latest
+        docker push ghcr.io/pyama86/tng:latest
