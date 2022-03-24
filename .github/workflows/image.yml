@@ -24,7 +24,7 @@ jobs:
       with:
         registry: docker.pkg.github.com
         username: pyama86
-        password: ${{ secrets.}}
+        password: ${{ secrets.PTA }}
     - run: |
         docker pusth pyama/tng:latest
         docker push ghcr.io/pyama86/tng:latest
