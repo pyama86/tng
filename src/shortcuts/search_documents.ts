@@ -19,8 +19,13 @@ export default function() {
     }
     var urljoin = require('url-join');
     var search_doc_url = new URL(urljoin(process.env.GITHUB_REPO, "/search"))
-    search_doc_url.searchParams.append('q', txt)
 
+    // x.x.x.x:y
+    txt = txt.replace(/((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]):[0-9]+/, '');
+    // x.x.x.x
+    txt = txt.replace(/((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])/, '');
+
+    search_doc_url.searchParams.append('q', txt)
     var new_doc_url = new URL("/new-document", (process.env.ENDPOINT || "http://localhost:3000"))
     new_doc_url.searchParams.append('message', encodeURI(txt))
     new_doc_url.searchParams.append('user', encodeURI(shortcut.user.username))
