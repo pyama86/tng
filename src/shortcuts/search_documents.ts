@@ -41,7 +41,7 @@ export default function() {
       const result = await app.client.chat.postEphemeral({
         user: shortcut.user.id,
         channel: shortcut.channel.id,
-        thread_ts: shortcut.ts,
+        thread_ts: shortcut.action_ts,
         "text": "操作を選択してください",
         "blocks": [
           {
