@@ -9,6 +9,7 @@ export default function() {
   app.shortcut('search_document', async ({ shortcut, ack, logger }) => {
     ack();
 
+    logger.info(shortcut)
     var txt = shortcut.message.text;
     if (!txt) {
       if (shortcut.message.attachments[0]["text"]) {
@@ -30,9 +31,10 @@ export default function() {
     new_doc_url.searchParams.append('message', encodeURI(txt))
     new_doc_url.searchParams.append('user', encodeURI(shortcut.user.username))
     try {
-      const result = await app.client.chat.postMessage({
+      const result = await app.client.chat.postEphemeral({
         user: shortcut.user.id,
         channel: shortcut.channel.id,
+        thread_ts: shortcut.ts,
         "text": "操作を選択してください",
         "thread_ts": shortcut.ts,
         "blocks": [
