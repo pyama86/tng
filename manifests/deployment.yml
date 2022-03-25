@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tng
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: tng
+  template:
+    metadata:
+      labels:
+        name: tng
+    spec:
+      containers:
+      - name: tng
+        imagePullPolicy: Always
+        image: pyama/tng:latest
+        ports:
+        - containerPort: 3000
+        livenessProbe:
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          tcpSocket:
+            port: 3000
+        readinessProbe:
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          tcpSocket:
+            port: 3000
+        env:
+          - name: SLACK_BOT_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: tng
+                key: slack-bot-token
+          - name: SLACK_SIGNING_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: tng
+                key: slack-signing-secret
+          - name: GITHUB_REPO
+            value: "https://github.com/pyama/tng"
+          - name: GITHUB_BRANCH
+            value: "main"
+          - name: LANG
+            value: C.UTF-8
