@@ -1,4 +1,5 @@
 FROM node:17-alpine3.14
+RUN apk update && apk upgrade
 COPY package*.json ./
 
 RUN addgroup -S tng && adduser -S tng -G tng
