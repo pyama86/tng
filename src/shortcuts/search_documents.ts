@@ -43,7 +43,6 @@ export default function() {
         channel: shortcut.channel.id,
         thread_ts: shortcut.ts,
         "text": "操作を選択してください",
-        "thread_ts": shortcut.ts,
         "blocks": [
           {
             "type": 'section',
