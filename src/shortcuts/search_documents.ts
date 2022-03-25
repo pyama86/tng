@@ -38,7 +38,7 @@ export default function() {
     new_doc_url.searchParams.append('message', encodeURI(txt))
     new_doc_url.searchParams.append('user', encodeURI(shortcut.user.username))
     try {
-      const result = await app.client.chat.postEphemeral({
+      const result = await app.client.chat.postMessage({
         user: shortcut.user.id,
         channel: shortcut.channel.id,
         thread_ts: shortcut.action_ts,
