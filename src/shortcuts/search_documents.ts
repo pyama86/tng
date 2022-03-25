@@ -25,6 +25,8 @@ export default function() {
     txt = txt.replace(/((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]):[0-9]+/, '');
     // x.x.x.x
     txt = txt.replace(/((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])/, '');
+    // host:y
+    txt = txt.replace(/[a-zA-Z0-9\.\-]+:[0-9]+/, '');
 
     search_doc_url.searchParams.append('q', txt)
     var new_doc_url = new URL("/new-document", (process.env.ENDPOINT || "http://localhost:3000"))
