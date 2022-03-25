@@ -1,4 +1,14 @@
 import { app } from '../initializers/bolt'
+
+function strip_individual_info(txt) {
+  // x.x.x.x:y
+  txt = txt.replace(/((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]):[0-9]+/, '');
+  // x.x.x.x
+  txt = txt.replace(/((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])/, '');
+  // host:y
+  txt = txt.replace(/[a-zA-Z0-9\\.\\-]+:[0-9]+/, '');
+  return txt
+}
 export default function() {
   app.action('new_document', async ({ ack }) => {
     ack();
@@ -21,12 +31,7 @@ export default function() {
     var urljoin = require('url-join');
     var search_doc_url = new URL(urljoin(process.env.GITHUB_REPO, "/search"))
 
-    // x.x.x.x:y
-    txt = txt.replace(/((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]):[0-9]+/, '');
-    // x.x.x.x
-    txt = txt.replace(/((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])/, '');
-    // host:y
-    txt = txt.replace(/[a-zA-Z0-9\.\-]+:[0-9]+/, '');
+    txt = strip_individual_info(txt)
 
     search_doc_url.searchParams.append('q', txt)
     var new_doc_url = new URL("/new-document", (process.env.ENDPOINT || "http://localhost:3000"))
