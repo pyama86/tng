@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prestart": "tsc -p .",
     "start": "node ./dist/index.js",
+    "preregist": "tsc -p .",
     "regist": "node ./dist/regist.js",
     "dev": "nodemon"
   },
