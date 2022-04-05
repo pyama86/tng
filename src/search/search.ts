@@ -53,6 +53,8 @@ export class Search {
       return
     }
     this.sha = tree.sha
+
+    console.log( "updated repository sha:"+this.sha)
     const blobs = await tree.tree.filter(async t => {
       return t.type == "blob"
     })
