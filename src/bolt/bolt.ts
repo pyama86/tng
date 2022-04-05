@@ -63,12 +63,13 @@ export const app = new App({
       method: ['GET'],
       handler: (req, res) => {
         try {
-          var urljoin = require('url-join');
-          var sprintf = require('sprintf-js').sprintf;
-          var parser = new URL(req.url, (process.env.ENDPOINT || "http://localhost:3000"));
-          var message = decodeURI(parser.searchParams.get("message"));
-          var user = decodeURI(parser.searchParams.get("user"));
-          var redirect_to = new URL(urljoin(process.env.GITHUB_REPO, "new", process.env.GITHUB_BRANCH || "main"));
+          const urljoin = require('url-join');
+          const sprintf = require('sprintf-js').sprintf;
+          const parser = new URL(req.url, (process.env.ENDPOINT || "http://localhost:3000"));
+          const message = decodeURI(parser.searchParams.get("message"));
+          const user = decodeURI(parser.searchParams.get("user"));
+          const branch = decodeURI(parser.searchParams.get("branch"));
+          const redirect_to = new URL(urljoin(process.env.GITHUB_REPO, "new", branch));
 
           redirect_to.searchParams.append('value', sprintf(NEW_DOCUMENT, message, user))
           redirect_to.searchParams.append('filename', message + ".md")
