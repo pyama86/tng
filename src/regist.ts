@@ -14,6 +14,6 @@ import { get_org_repo } from './utils/utils'
   while(true) {
     console.log( "check repository and regist index")
     await search.regist()
-    await new Promise(resolve => setTimeout(resolve, 600000))
+    await new Promise(resolve => setTimeout(resolve, 1200000))
   }
 })();
