@@ -107,14 +107,17 @@ export class Search {
 
         path: b.path
       });
-
-      await this.client.index({
-        index: index_name,
-        document: {
-          path: b.path,
-          body: c.data,
-        }
-      })
+      try {
+        await this.client.index({
+          index: index_name,
+          document: {
+            path: b.path,
+            body: c.data,
+          }
+        })
+      } catch (e) {
+        console.log(e);
+      }
     }
     let old_index_name = ""
     if (await this.client.indices.existsAlias({
